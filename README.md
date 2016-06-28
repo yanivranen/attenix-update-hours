@@ -1,6 +1,6 @@
 # attenix-update-hours
 A scraper for the Attenix system that's in charge of updating hours to employees
-It is written for python 2.7.10 and currently checked to be working on Mac (El Capitan - 10.11.5) but no real reason it shouldn't work on other versions
+It is written for python 2.7.8 and currently checked to be working on Mac (El Capitan - 10.11.5) but no real reason it shouldn't work on other versions
 
 Installing
 1. install chromedriver at ~/Documents using these references: https://sites.google.com/a/chromium.org/chromedriver/getting-started, https://sites.google.com/a/chromium.org/chromedriver/downloads
