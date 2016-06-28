@@ -74,6 +74,6 @@ class Attenix_Api(object):
                 row_elem.find_element_by_css_selector('input[fieldname="time_end_MM"]').send_keys('0')
 
 if __name__ == "__main__":
-    a = Attenix_Api(user_credentials=[general_schedule_option_id='1111', {'user':'bla.bla', 'password':'blabla', 'user_display_name':'164'}])
+    a = Attenix_Api(general_schedule_option_id='1111', user_credentials=[{'user':'bla.bla', 'password':'blabla', 'user_display_name':'164'}])
     a.update_hours()
     
