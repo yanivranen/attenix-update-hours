@@ -9,7 +9,7 @@ Installing
 Running
 1. import the Attenix_Api from attenix-scraper.py 
 2. init the Attenix_Api
-3. run the 
+3. run the update_hours() method
 
 f.e.
 Attenix_Api(general_schedule_option_id='1111', user_credentials=[{'user':'bla.bla', 'password':'blabla', 'user_display_name':'164'}])
