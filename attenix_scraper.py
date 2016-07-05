@@ -61,8 +61,15 @@ class Attenix_Api(object):
         for rownum in range(number_of_month_days):
             row_elem = driver.find_element_by_css_selector('tr[row_no="' + str(rownum + 1) + '"]')
             ''' get only weekdays + holiday eve '''
-            row_title = row_elem.find_element_by_css_selector(
-                'td[title="Weekday"],td[title="Holiday eve"]').get_attribute('title')
+            try:
+                row_title = row_elem.find_element_by_css_selector(
+                    'td[title="Weekday"],td[title="Holiday eve"]').get_attribute('title')
+            except:
+                row_title = "OffWorkDay"
+
+            if not self.time_constants.get(row_title):
+                # Vacation, no need to update anything
+                continue
             assignment_cell = row_elem.find_element_by_css_selector('input[valname="jid_' + str(rownum + 1) + '"]')
             if assignment_cell.get_attribute('value') == '':
                 assignment_cell.click()
@@ -76,4 +83,3 @@ class Attenix_Api(object):
 if __name__ == "__main__":
     a = Attenix_Api(general_schedule_option_id='1111', user_credentials=[{'user':'bla.bla', 'password':'blabla', 'user_display_name':'164'}])
     a.update_hours()
-    
