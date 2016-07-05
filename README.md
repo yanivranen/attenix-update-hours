@@ -7,7 +7,7 @@ Installing
 2. pip install requirements.txt
 
 Running
-1. import the Attenix_Api from attenix-scraper.py 
+1. import the Attenix_Api from attenix_scraper.py 
 2. init the Attenix_Api
 3. run the update_hours() method
 
