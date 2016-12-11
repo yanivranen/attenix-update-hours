@@ -48,6 +48,8 @@ class Attenix_Api(object):
             driver.get('https://asp.attenix.co.il')
             self.login_to_attenix(driver, credentials)
             driver.find_element_by_css_selector('div[id=el2]').click()
+            # this row is for getting the last month, it depends on the time you run the script, u may need to comment it out
+            # driver.find_element_by_css_selector('input[value="<<"]').click()
             driver.find_element_by_css_selector('select#assignments option[value="' + self.general_schedule_option_id +
                                                 '"]').click()
             number_of_month_days = self.number_of_month_days(driver)
@@ -80,6 +82,32 @@ class Attenix_Api(object):
                                                       ).send_keys(self.time_constants[row_title]['end_hour'])
                 row_elem.find_element_by_css_selector('input[fieldname="time_end_MM"]').send_keys('0')
 
+    def approve_hours(self):
+        driver = webdriver.Chrome(self.chrome_home)
+        approve_hours_list = [user for user in self.user_credentials if user.get('approves_hours')]
+        for credentials in approve_hours_list:
+            print 'Setting the hours for user %s' % (credentials['user'])
+            driver.get('https://asp.attenix.co.il')
+            self.login_to_attenix(driver, credentials)
+            driver.find_element_by_css_selector('div[id=el4]').click()
+            driver.find_element_by_css_selector('input[value="<<"]').click()
+            for credentials in self.user_credentials:
+                print 'Approving the hours for user {user_name}'.format(user_name=credentials['user'])
+                elem = driver.find_element_by_css_selector('input[name="filter_employee_name"]')
+                elem.click()
+                user_name = credentials.get('user_display_name', credentials.get('user'))
+                user_title = user_name.split('.')[-1] + ',' + user_name.split('.')[0] if len(user_name.split('.')) > 1 \
+                    else user_name
+                elem.send_keys(user_title)
+                sleep(2)
+                driver.find_element_by_css_selector('input[name="submit1"]').click()
+                driver.find_element_by_css_selector('input[name="check_all"]').click()
+                driver.find_element_by_css_selector('input[id="save_btn"]').click()
+                print 'Approved the hours for user {user_name} successfully'.format(user_name=credentials['user'])
+        driver.close()
+
+
 if __name__ == "__main__":
     a = Attenix_Api(general_schedule_option_id='1111', user_credentials=[{'user':'bla.bla', 'password':'blabla', 'user_display_name':'164'}])
     a.update_hours()
+
